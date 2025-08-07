@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CalculoTatoo - Modo Administrador</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-paint-brush"></i>
+                <h1>CalculoTatoo</h1>
+            </div>
+            <p class="subtitle">Herramienta profesional para calcular precios de tatuajes. Personaliza todos los parámetros según tus necesidades.</p>
+            <div class="admin-badge">
+                <i class="fas fa-user-cog"></i> MODO ADMINISTRADOR
+            </div>
+        </header>
+        
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="calculator">
+                <i class="fas fa-calculator"></i> Calculadora
+            </button>
+            <button class="tab-btn" data-tab="configurations">
+                <i class="fas fa-cog"></i> Configuraciones
+            </button>
+        </div>
+        
+        <!-- Pestaña de Calculadora -->
+        <div id="calculator" class="tab-content active">
+            <h2 class="section-title"><i class="fas fa-calculator"></i> Calcular Precio de Tatuaje</h2>
+            
+            <div class="instructions">
+                <p><strong>Instrucciones:</strong> Completa los detalles del tatuaje para calcular el precio. Todos los parámetros son configurables en la sección de Configuraciones.</p>
+            </div>
+            
+            <div class="grid-container">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-coins"></i> Moneda</h3>
+                    </div>
+                    <div class="form-group">
+                        <label>Seleccionar moneda:</label>
+                        <select id="currency" class="form-control">
+                            <option value="USD">Dólares (USD) - $</option>
+                            <option value="EUR">Euros (EUR) - €</option>
+                            <option value="GBP">Libras (GBP) - £</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-ruler-combined"></i> Tamaño</h3>
+                    </div>
+                    <div class="form-group">
+                        <label>Dimensiones (cm):</label>
+                        <div class="input-group">
+                            <input type="number" id="length" class="form-control" placeholder="Largo" min="1" value="10">
+                            <input type="number" id="width" class="form-control" placeholder="Ancho" min="1" value="5">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Área total (cm²):</label>
+                        <input type="text" id="area" class="form-control" readonly value="50">
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-body"></i> Área Corporal</h3>
+                    </div>
+                    <div class="form-group">
+                        <label>Seleccionar área:</label>
+                        <select id="body-area" class="form-control">
+                            <option value="0.0">Brazo (0%)</option>
+                            <option value="0.2">Espalda (20%)</option>
+                            <option value="0.5">Costillas (50%)</option>
+                            <option value="0.3">Pierna (30%)</option>
+                            <option value="0.1">Pecho (10%)</option>
+                            <option value="-0.1">Hombro (-10%)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-layer-group"></i> Complejidad</h3>
+                    </div>
+                    <div class="form-group">
+                        <label>Nivel de dificultad:</label>
+                        <select id="difficulty" class="form-control">
+                            <option value="0.0">Básica (0%)</option>
+                            <option value="0.3">Media (30%)</option>
+                            <option value="0.7">Alta (70%)</option>
+                            <option value="1.0">Muy alta (100%)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-palette"></i> Color</h3>
+                    </div>
+                    <div class="form-group">
+                        <label>Estilo de color:</label>
+                        <select id="color" class="form-control">
+                            <option value="0.0">Solo negro (0%)</option>
+                            <option value="0.2">Negro y grises (20%)</option>
+                            <option value="0.5">Color básico (50%)</option>
+                            <option value="0.8">Color completo (80%)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-clock"></i> Tiempo Estimado</h3>
+                    </div>
+                    <div class="form-group">
+                        <label>Duración estimada:</label>
+                        <div class="input-group">
+                            <input type="number" id="hours" class="form-control" placeholder="Horas" min="0" value="3">
+                            <input type="number" id="minutes" class="form-control" placeholder="Minutos" min="0" max="59" value="0">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Precio por hora:</label>
+                        <input type="text" id="hourly-rate" class="form-control" readonly value="$80.00">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <button id="calculate-btn" class="btn btn-block">
+                    <i class="fas fa-calculator"></i> Calcular Precio Total
+                </button>
+            </div>
+            
+            <div class="result-container">
+                <div class="result-label">PRECIO ESTIMADO DEL TATUAJE</div>
+                <div class="result-price">$0.00</div>
+                <div class="result-label">Este precio es una estimación basada en tus parámetros</div>
+            </div>
+            
+            <div class="price-summary">
+                <h3 class="section-title"><i class="fas fa-file-invoice-dollar"></i> Desglose del Precio</h3>
+                
+                <div class="summary-item">
+                    <span>Precio base (50 cm² × $10):</span>
+                    <span>$500.00</span>
+                </div>
+                <div class="summary-item">
+                    <span>Área corporal (Brazo):</span>
+                    <span>$0.00</span>
+                </div>
+                <div class="summary-item">
+                    <span>Complejidad (Básica):</span>
+                    <span>$0.00</span>
+                </div>
+                <div class="summary-item">
+                    <span>Color (Solo negro):</span>
+                    <span>$0.00</span>
+                </div>
+                <div class="summary-item">
+                    <span>Tiempo (3 horas × $80):</span>
+                    <span>$240.00</span>
+                </div>
+                <div class="summary-total">
+                    <span>TOTAL:</span>
+                    <span>$740.00</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pestaña de Configuraciones -->
+        <div id="configurations" class="tab-content">
+            <h2 class="section-title"><i class="fas fa-cog"></i> Configuraciones</h2>
+            
+            <div class="instructions">
+                <p><strong>Personaliza todos los aspectos de la calculadora:</strong> Configura precios base, áreas corporales, niveles de complejidad y más.</p>
+            </div>
+            
+            <div class="grid-container">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-money-bill-wave"></i> Precios Base</h3>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Precio base por cm²:</label>
+                        <div class="input-group">
+                            <span class="form-control" style="width: 60px; text-align: center;">$</span>
+                            <input type="number" id="base-price-setting" class="form-control" placeholder="10.00" min="0.1" step="0.1" value="10">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Precio por hora de trabajo:</label>
+                        <div class="input-group">
+                            <span class="form-control" style="width: 60px; text-align: center;">$</span>
+                            <input type="number" id="hourly-price-setting" class="form-control" placeholder="80.00" min="1" step="1" value="80">
+                        </div>
+                    </div>
+                    
+                    <button id="save-prices-btn" class="btn">
+                        <i class="fas fa-save"></i> Guardar Precios
+                    </button>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-body"></i> Áreas Corporales</h3>
+                        <button class="btn-icon" id="add-area">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Nombre del área:</label>
+                        <input type="text" id="area-name" class="form-control" placeholder="Brazo">
+                    </div>
+                    <div class="form-group">
+                        <label>Porcentaje de precio:</label>
+                        <div class="input-group">
+                            <input type="number" id="area-percentage" class="form-control" placeholder="0" min="-100" max="100" step="1">
+                            <span class="form-control" style="width: 60px; text-align: center;">%</span>
+                        </div>
+                    </div>
+                    <button id="save-area-btn" class="btn btn-secondary">
+                        <i class="fas fa-save"></i> Guardar Área
+                    </button>
+                    
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label>Áreas existentes:</label>
+                        <select id="existing-areas" class="form-control" style="margin-bottom: 10px;">
+                            <option value="">Seleccionar para editar/eliminar</option>
+                        </select>
+                        <div class="input-group">
+                            <button id="edit-area-btn" class="btn" style="flex: 1;">
+                                <i class="fas fa-edit"></i> Editar
+                            </button>
+                            <button id="delete-area-btn" class="btn btn-secondary" style="flex: 1;">
+                                <i class="fas fa-trash"></i> Eliminar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-layer-group"></i> Niveles de Dificultad</h3>
+                        <button class="btn-icon" id="add-difficulty">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Nombre del nivel:</label>
+                        <input type="text" id="difficulty-name" class="form-control" placeholder="Básica">
+                    </div>
+                    <div class="form-group">
+                        <label>Porcentaje de precio:</label>
+                        <div class="input-group">
+                            <input type="number" id="difficulty-percentage" class="form-control" placeholder="0" min="-100" max="100" step="1">
+                            <span class="form-control" style="width: 60px; text-align: center;">%</span>
+                        </div>
+                    </div>
+                    <button id="save-difficulty-btn" class="btn btn-secondary">
+                        <i class="fas fa-save"></i> Guardar Nivel
+                    </button>
+                    
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label>Niveles existentes:</label>
+                        <select id="existing-difficulties" class="form-control" style="margin-bottom: 10px;">
+                            <option value="">Seleccionar para editar/eliminar</option>
+                        </select>
+                        <div class="input-group">
+                            <button id="edit-difficulty-btn" class="btn" style="flex: 1;">
+                                <i class="fas fa-edit"></i> Editar
+                            </button>
+                            <button id="delete-difficulty-btn" class="btn btn-secondary" style="flex: 1;">
+                                <i class="fas fa-trash"></i> Eliminar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-palette"></i> Opciones de Color</h3>
+                        <button class="btn-icon" id="add-color">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Descripción:</label>
+                        <input type="text" id="color-desc" class="form-control" placeholder="Solo negro">
+                    </div>
+                    <div class="form-group">
+                        <label>Porcentaje de precio:</label>
+                        <div class="input-group">
+                            <input type="number" id="color-percentage" class="form-control" placeholder="0" min="-100" max="100" step="1">
+                            <span class="form-control" style="width: 60px; text-align: center;">%</span>
+                        </div>
+                    </div>
+                    <button id="save-color-btn" class="btn btn-secondary">
+                        <i class="fas fa-save"></i> Guardar Opción
+                    </button>
+                    
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label>Opciones existentes:</label>
+                        <select id="existing-colors" class="form-control" style="margin-bottom: 10px;">
+                            <option value="">Seleccionar para editar/eliminar</option>
+                        </select>
+                        <div class="input-group">
+                            <button id="edit-color-btn" class="btn" style="flex: 1;">
+                                <i class="fas fa-edit"></i> Editar
+                            </button>
+                            <button id="delete-color-btn" class="btn btn-secondary" style="flex: 1;">
+                                <i class="fas fa-trash"></i> Eliminar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-coins"></i> Monedas</h3>
+                        <button class="btn-icon" id="add-currency">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Código de moneda (ej: USD):</label>
+                        <input type="text" id="currency-code" class="form-control" placeholder="USD">
+                    </div>
+                    <div class="form-group">
+                        <label>Símbolo (ej: $):</label>
+                        <input type="text" id="currency-symbol" class="form-control" placeholder="$">
+                    </div>
+                    <button id="save-currency-btn" class="btn btn-secondary">
+                        <i class="fas fa-save"></i> Guardar Moneda
+                    </button>
+                    
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label>Monedas existentes:</label>
+                        <select id="existing-currencies" class="form-control" style="margin-bottom: 10px;">
+                            <option value="">Seleccionar para editar/eliminar</option>
+                        </select>
+                        <div class="input-group">
+                            <button id="edit-currency-btn" class="btn" style="flex: 1;">
+                                <i class="fas fa-edit"></i> Editar
+                            </button>
+                            <button id="delete-currency-btn" class="btn btn-secondary" style="flex: 1;">
+                                <i class="fas fa-trash"></i> Eliminar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-top: 30px;">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fas fa-history"></i> Historial de Precios Base</h3>
+                </div>
+                
+                <div class="table-container">
+                    <table id="price-history-table">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Precio/cm²</th>
+                                <th>Precio/hora</th>
+                                <th>Actualizado por</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>07/08/2025</td>
+                                <td>$10.00</td>
+                                <td>$80.00</td>
+                                <td>Admin</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>CalculoTatoo - Modo Administrador &copy; 2025 | Herramienta profesional para tatuadores</p>
+            <p>Esta versión permite configurar todos los parámetros de cálculo para adaptarse a tu estudio</p>
+        </div>
+        
+        <!-- Toast de confirmación -->
+        <div id="toast" class="toast">
+            <i class="fas fa-check-circle"></i>
+            <span id="toast-message">Cambios guardados con éxito</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
